@@ -1,25 +1,35 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { routes } from '../routes';
 import { MainMenu } from './MainMenu';
+import { Layout } from './Layout';
 import './style.css';
 
 export const Root = () => {
     return (
         // HashRouter нужен для того, чтобы на gh-pages все грузилось
         <HashRouter history={createBrowserHistory()}>
-            <Switch>
-                <Route path="/" component={MainMenu} exact />
-                {routes.map((route, index) => (
+            <MainMenu />
+            <Layout>
+                <Switch>
                     <Route
-                        key={index}
-                        path={route.path}
-                        render={route.component}
+                        path={'/'}
                         exact
+                        render={(match) => (
+                            <Redirect to="/react-spring" {...match} />
+                        )}
                     />
-                ))}
-            </Switch>
+                    {routes.map((route, index) => (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            component={route.component}
+                            exact
+                        />
+                    ))}
+                </Switch>
+            </Layout>
         </HashRouter>
     );
 };
