@@ -8,8 +8,8 @@ export const MainMenu = () => {
             <S.Status>
                 <Link to="/react-spring">react spring</Link>
             </S.Status>
-            <Link to="/link1">
-                <S.Status>Ссылка 1</S.Status>
+            <Link to="/drag">
+                <S.Status>drag</S.Status>
             </Link>
             <Link to="/link2">
                 <S.Status>Ссылка 2</S.Status>
