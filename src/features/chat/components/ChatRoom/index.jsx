@@ -14,16 +14,18 @@ export const ChatRoom = ({
     const messagesRef = React.useRef(null);
 
     const onSendMessage = () => {
-        socket.emit('ROOM:NEW_MESSAGE', {
-            userName,
-            roomId,
-            text: messageValue,
-        });
-        onAddMessage({
-            userName,
-            text: messageValue,
-        });
-        setMessageValue('');
+        if (messageValue !== '') {
+            socket.emit('ROOM:NEW_MESSAGE', {
+                userName,
+                roomId,
+                text: messageValue,
+            });
+            onAddMessage({
+                userName,
+                text: messageValue,
+            });
+            setMessageValue('');
+        }
     };
 
     React.useEffect(() => {
@@ -58,6 +60,14 @@ export const ChatRoom = ({
                         placeholder="Type something..."
                         value={messageValue}
                         onChange={(e) => setMessageValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.ctrlKey && e.key === 'Enter') {
+                                e.target.value = e.target.value + '\n';
+                            } else if (e.key === 'Enter') {
+                                e.preventDefault();
+                                onSendMessage();
+                            }
+                        }}
                         rows={3}
                     />
                     <S.ButtonContainer>
