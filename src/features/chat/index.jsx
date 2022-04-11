@@ -23,7 +23,10 @@ export const Chat = () => {
         });
         socket.emit('ROOM:JOIN', obj);
         const { data } = await axios.get(`/rooms/${obj.roomId}`);
-        setUsers(data.users);
+        dispatch({
+            type: 'SET_DATA',
+            payload: data,
+        });
     };
 
     const roomChangeHandler = (e) => {
@@ -49,8 +52,16 @@ export const Chat = () => {
         });
     };
 
+    const addMessage = (message) => {
+        dispatch({
+            type: 'NEW_MESSAGE',
+            payload: message,
+        });
+    };
+
     useEffect(() => {
         socket.on('ROOM:SET_USERS', setUsers);
+        socket.on('ROOM:NEW_MESSAGE', addMessage);
     }, []);
 
     return (
@@ -64,7 +75,7 @@ export const Chat = () => {
                     onEnter={onEnter}
                 />
             ) : (
-                <ChatRoom {...state} />
+                <ChatRoom {...state} onAddMessage={addMessage} />
             )}
         </S.Wrapper>
     );

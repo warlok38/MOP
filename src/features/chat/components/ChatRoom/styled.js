@@ -2,16 +2,17 @@ import styled from 'styled-components';
 import { Button as AntdButton, Input as AntdInput } from 'antd';
 
 export const Wrapper = styled.div`
-    display: grid;
-    grid-template-columns: minmax(150px, 200px) 2fr;
-    height: fit-content;
+    display: flex;
+    max-height: 100%;
     border-radius: 5px;
     border: 1px solid #bebebe;
+    overflow: auto;
 `;
 
 export const SideContainer = styled.div`
     padding: 16px;
     max-width: 200px;
+    min-width: 150px;
     background-color: #eeeeee;
     border-right: 1px solid #e0e0e0;
     border-radius: 5px 0 0 5px;
@@ -21,6 +22,7 @@ export const SideTitle = styled.div`
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
+    word-break: break-word;
 `;
 
 export const UserContainer = styled.div`
@@ -34,18 +36,25 @@ export const User = styled.div`
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 1px 2px 5px 0 rgba(1, 1, 1, 0.1);
+    text-overflow: ellipsis;
+    overflow: hidden;
 `;
 
 export const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    min-width: 200px;
 `;
 
 export const Content = styled.div`
     display: grid;
+    grid-auto-rows: max-content;
     row-gap: 16px;
     padding: 16px;
+    min-height: 300px;
+    overflow: auto;
 `;
 
 export const MessageContainer = styled.div``;
@@ -58,6 +67,7 @@ export const Message = styled.div`
     border-radius: 10px;
     font-size: 16px;
     line-height: 19px;
+    word-break: break-word;
 `;
 
 export const MessageLabel = styled.div`
